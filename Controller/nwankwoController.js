@@ -21,6 +21,7 @@ export const  getNwankwoById = async (req, res) => {
     }
 };
 
+
  export const findByIdAndUpdate = async (req,res) => {
     try {
         const {id} = req.params;
