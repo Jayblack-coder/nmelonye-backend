@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 
 const NwankwoSchema = new mongoose.Schema({
   name:String,
-  // surname:String,
-  // familyStatus:String,
   parents:String,
   generation:Number,
   position:String,

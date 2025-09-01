@@ -18,10 +18,10 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://your-frontend.onrender.com" // change to your actual frontend on Render
+    "https://your-frontend.onrender.com"
   ],
   methods: ["GET", "PUT", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"], // let Content-Type through
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
