@@ -1,55 +1,53 @@
-import express  from'express'
+import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-//import {Nwankwo} from "./Modules/nwankwoModule.js"
-import {router} from './Routes/nwankwoRoute.js'
+
+import { router } from './Routes/nwankwoRoute.js'
 import { asouzuRouter } from './Routes/asouzuRoute.js'
-//import { Asouzu } from './Modules/asouzuModule.js'
 import { udorjiRouter } from './Routes/udorjiRoute.js'
-//import { Udorji } from './Modules/udorjiModule.js'
 import { okoliRouter } from './Routes/okoliRoute.js'
-//import { Okoli } from './Modules/okoliModule.js'
-//import { Anyaga } from './Modules/anyagaModule.js'
 import { anyagaRouter } from './Routes/anyagaRoute.js'
 
-
-
-
-const app = express()
-app.use(express.json());
 dotenv.config();
+
+const app = express();
+
+// ✅ Apply middleware in correct order
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.onrender.com" // change to your actual frontend on Render
+  ],
+  methods: ["GET", "PUT", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // let Content-Type through
+  credentials: true,
+}));
+
+app.use(express.json());
 app.use(bodyParser.json());
-app.use('/nwankwos', router)
-app.use('/asouzus', asouzuRouter)
-app.use('/udorjis', udorjiRouter)
-app.use('/okolis', okoliRouter)
-app.use('/anyagas', anyagaRouter)
+
+// ✅ Routes
+app.use('/nwankwos', router);
+app.use('/asouzus', asouzuRouter);
+app.use('/udorjis', udorjiRouter);
+app.use('/okolis', okoliRouter);
+app.use('/anyagas', anyagaRouter);
 
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
-app.use(cors({
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: 'http://localhost:5173',
-  methods: ["GET", "PUT", "POST"]
-})
-);
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', ' http://localhost:5173');
-//     next();
-//   });
+// ✅ Connect DB + start server
+mongoose.connect(MONGOURL)
+  .then(() => {
+    console.log("Database is connected successfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => console.log(error));
 
-
- 
-mongoose
-.connect(MONGOURL).then(() =>{
-  console.log("Database is connected successfully");
-  app.listen(PORT, () => {
-    console.log("Server is running on port 8000}");
-  });
-}).catch((error) => console.log(error));
 
 
 //NWANKWO API REQUESTS
