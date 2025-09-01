@@ -10,7 +10,6 @@ export const getAnyaga = async (req, res) => {
     }
 };
 
-
 export const  getAnyagaById = async (req, res) => {
     try {
         const {id} = req.params;

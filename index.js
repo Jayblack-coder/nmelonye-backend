@@ -31,6 +31,7 @@ const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
 app.use(cors({
+  allowedHeaders: ['Content-Type', 'Authorization'],
   origin: 'http://localhost:5173',
   methods: ["GET", "PUT", "POST"]
 })

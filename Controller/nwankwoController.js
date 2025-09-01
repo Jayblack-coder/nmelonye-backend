@@ -10,6 +10,15 @@ export const getNwankwo = async (req, res) => {
     }
 };
 
+// export const updateNwankwo = async (req, res) => {
+//     try {
+//         const family = await Nwankwo.updateMany({}, {$set:{"residence":""}});
+//         res.status(200).json(family)
+//     } catch (error) {
+//      res.status(500).json({message: error.message});   
+//     }
+// };
+
 
 export const  getNwankwoById = async (req, res) => {
     try {
