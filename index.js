@@ -21,7 +21,7 @@ app.use(cors({
     "https://your-frontend.onrender.com"
   ],
   methods: ["GET", "PUT", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  // allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
