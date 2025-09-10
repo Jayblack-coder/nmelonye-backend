@@ -1,14 +1,16 @@
 import express from "express";
-//import Family from "../Module/FamilyModule.js";
-import { getNwankwos, getNwankwosById, NwankwosByIdAndUpdate, CreateNwankwos, NwankwosByIdAndDelete } from "../Controller/familyController.js";
-const router = express.Router();
+import { registerUser } from "../Controller/familyController.js";
+// import {  getFamily,getFamilyById,findByIdAndUpdate,Create,findByIdAndDelete } from "../Controller/familyController.js";
+
+export const familyRouter = express.Router();
 
 
-router.get("/nwankwos", getNwankwos);
-router.get("/nwankwos/:id", getNwankwosById);
-router.put("/nwankwos/:id", NwankwosByIdAndUpdate);
-router.post("/nwankwos/:id", CreateNwankwos);
-router.delete("/nwankwos/:id", NwankwosByIdAndDelete);
+// familyRouter.get("/", getFamily);
+familyRouter.post('/members', registerUser);
+// familyRouter.get("/:id", getFamilyById);
+// familyRouter.put("/:id", findByIdAndUpdate);
+// familyRouter.post("/:id", Create);
+// familyRouter.delete("/:id", findByIdAndDelete);
 
 
-module.exports = router;
+// module.exports = router;

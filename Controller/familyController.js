@@ -1,70 +1,69 @@
-import Family from "../Modules/familyModule" // Product
+import bcrypt from 'bcryptjs';
+import { Family } from '../Modules/familyModule.js';
 
-//GET ALL FAMILY
-const getNwankwos = async (req, res) => { //getProducts
-    try {
-        const family = await Family.find({}); //product
-        res.status(200).json(family)
-    } catch (error) {
-     res.status(500).json({message: error.message});   
+// Register user
+export const registerUser = async (req, res) => {
+  try {
+    const {
+      surname,
+      firstName,
+      middleName,
+      familyStatus,
+      userName,
+      password,
+      parents,
+      generation,
+      dateOfBirth,
+      spouse,
+      cityOfResidence,
+      offspring
+    } = req.body;
+
+    // Validate required fields
+    if (
+      !surname ||
+      !firstName ||
+      !familyStatus ||
+      !userName ||
+      !password ||
+      !parents ||
+      !generation ||
+      !dateOfBirth ||
+      !cityOfResidence
+    ) {
+      return res.status(400).json({ message: "All required fields must be provided" });
     }
+
+    // Check if username already exists
+    const existingUser = await Family.findOne({ userName });
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user
+    const newUser = new Family({
+      surname,
+      firstName,
+      middleName,
+      familyStatus,
+      userName,
+      password: hashedPassword,
+      parents,
+      generation,
+      dateOfBirth,
+      spouse,
+      cityOfResidence,
+      offspring
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: "Registration successful", user: newUser });
+  } catch (err) {
+    console.error("Registration error:", err);
+    res.status(500).json({ message: "Error registering user", error: err.message });
+  }
 };
-
-// GET BY ID
-const getNwankwosById = async (req, res) => { //getProductById
-    try {
-        const {id} = req.params;
-        const family = await Family.findById(id);
-        res.status(200).json(family);
-    } catch (error) {
-        res.status(500).json({ message: error.message});
-    }
-};
-
-
-// UPDATE BY ID
-const NwankwosByIdAndUpdate = async (req,res) => {
-    try {
-        const {id} = req.params;
-        const updatedFamily = await Family.findByIdAndUpdate({id}, req.body);
-        if (! updatedFamily) {
-            return res.status(404).json({message:"family not found"});
-        }
-        res.status(200).json(updatedFamily);
-    } catch (error) {
-        res.status(500).json({ message: error.message});
-    }
-};
-
-// POST REQUEST
-const CreateNwankwos = async (req,res) => {
-    try{
-        const family = await Family.create(req.body);
-        res.status(200).json(family);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
-
-
-// DELETE BY ID
-const NwankwosByIdAndDelete = async (req,res) => {
-    try {
-        const {id} = req.params;
-        const family = await Family.findByIdAndDelete({id}, req.body);
-        if (!family) {
-            return res.status(404).json({message:"Family not found"});
-        }
-        res.status(200).json({ message: "Family Deleted Successfully" });
-    } catch (error) {
-        res.status(500).json({ message: error.message});
-    }
-}
-
-module.exports = {
-    getNwankwos,
-    getNwankwosById,
-    NwankwosByIdAndUpdate,
-    CreateNwankwos,
-    NwankwosByIdAndDelete
-}

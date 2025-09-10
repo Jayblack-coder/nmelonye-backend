@@ -1,14 +1,71 @@
 import mongoose from "mongoose";
 
 const FamilySchema = new mongoose.Schema({
-  name:String,
-  parents:String,
-  generation:Number,
-  position:String,
-  spouse:String,
-  offspring:Array
-});
-const Family = mongoose.model('nwankwos', FamilySchema)
-module.exports = Family
+  surname: {
+       type: String,
+       required: true,
+  },
 
+   firstName: {
+         type: String,
+         required: true,
+  },
+
+   middleName: {
+        type: String,
+        required: true,
+  },
+
+   userName: {
+       type: String,
+       required: true,
+  },
+
+   password: {
+       type: String,
+       required: true,
+  },
+
+  dateOfBirth: {
+       type: String,
+       required: false,
+  },
+
+   parents: {
+       type: String,
+       required: true,
+  },
+
+   familyStatus: {
+       type: String,
+       required: true,
+  },
+
+   generation: {
+       type: Number,
+       required: true,
+  },
+
+   spouse: {
+       type: String,
+       required:false,
+  },
+
+   cityOfResidence: {
+        type: String,
+        required: true,
+  },
+
+  offspring: {
+        type: Array,
+        required: false,
+  },
+  
+  image: {
+        type: String,
+        required: false 
+}
+});
+export const Family = mongoose.model('Family', FamilySchema)
+// module.exports = Family
 
