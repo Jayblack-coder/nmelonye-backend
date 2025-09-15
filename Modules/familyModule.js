@@ -66,6 +66,6 @@ const FamilySchema = new mongoose.Schema({
         required: false 
 }
 });
-export const Family = mongoose.model('Family', FamilySchema)
+export const Family = mongoose.model('families', FamilySchema)
 // module.exports = Family
 
