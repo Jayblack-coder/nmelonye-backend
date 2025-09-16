@@ -115,6 +115,18 @@ export const loginuser = async (req, res) => {
 };
 
 
+//GET Member by ID
+export const  getUserById = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const family = await Family.findById(id);
+        res.status(200).json(family);
+    } catch (error) {
+        res.status(500).json({ message: error.message});
+    }
+};
+
+
 //GET ALL Members
 export const getAllUsers = async (req, res) => {
     try {
@@ -126,17 +138,6 @@ export const getAllUsers = async (req, res) => {
 };
 
 
-
-
-export const  getUserById = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const family = await Family.findById(id);
-        res.status(200).json(family);
-    } catch (error) {
-        res.status(500).json({ message: error.message});
-    }
-};
 
 
  export const findByIdAndUpdate = async (req,res) => {
