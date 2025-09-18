@@ -22,6 +22,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://nmelonye-family.vercel.app"
+  
   ],
   methods: ["GET", "PUT", "POST", "OPTIONS"],
   credentials: true,
