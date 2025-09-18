@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 import { router } from './Routes/nwankwoRoute.js';
 import { asouzuRouter } from './Routes/asouzuRoute.js';
@@ -14,23 +15,23 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Apply CORS FIRST
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://nmelonye-family.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type: application/json", "Authorization"],
-    credentials: true,
-  })
-);
-
-app.options("*", cors());
-
 // ✅ Middleware
 app.use(express.json());
+app.use(bodyParser.json());
+
+// ✅ CORS setup
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://nmelonye-family.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+// ✅ Handle preflight for all routes
+app.options("*", cors());
 
 // ✅ Routes
 app.use('/nwankwos', router);
@@ -40,38 +41,15 @@ app.use('/okolis', okoliRouter);
 app.use('/anyagas', anyagaRouter);
 app.use('/api/user', familyRouter);
 
+// ✅ Server + DB
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
-// ✅ Connect DB + start server
-mongoose
-  .connect(MONGOURL)
+mongoose.connect(MONGOURL)
   .then(() => {
-    console.log("Database is connected successfully");
+    console.log("✅ Database connected successfully");
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
-  .catch((error) => console.log(error));
-
-
-
-// NOTES:
-
-// *PUT request affects the whole data/document. use only when you want to change entire data fields/document
-// *PATCH request updates only the desired field within the document/data
-
-// create a folder and gitbash
-//npm init -y for package.jason containing dependecies
-//nodemon installation for fast reload- npm i nodemon -D
-// express installation-npm i express
-// open new file- index.js in backend folder
-// type your programme in the file
-// npm init -y for package.jason
-//add server and dev in package.jason for start command
-// run local host- npm run server. kill before each run command
-//npm run dev as start command after nodemon
-//use local host 6000 for postman without continous killing
-//3m8UU3WB8XiPgUhF
-//install mongodb
-// install mongoose 
+  .catch((error) => console.log("❌ DB Connection Error:", error));
