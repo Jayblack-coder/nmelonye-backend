@@ -3,48 +3,37 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-// import { router } from './Routes/nwankwoRoute.js'
-// import { asouzuRouter } from './Routes/asouzuRoute.js'
-// import { udorjiRouter } from './Routes/udorjiRoute.js'
-// import { okoliRouter } from './Routes/okoliRoute.js'
-// import { anyagaRouter } from './Routes/anyagaRoute.js'
-// import { familyRouter } from './Routes/familyRoute.js'
+import { router } from './Routes/nwankwoRoute.js'
+import { asouzuRouter } from './Routes/asouzuRoute.js'
+import { udorjiRouter } from './Routes/udorjiRoute.js'
+import { okoliRouter } from './Routes/okoliRoute.js'
+import { anyagaRouter } from './Routes/anyagaRoute.js'
+import { familyRouter } from './Routes/familyRoute.js'
 
 dotenv.config();
 
 const app = express();
 
 // ✅ Apply middleware in correct order
-// app.use(cors({
-//   origin: [
-//     "http://localhost:5173",
-//     "https://your-frontend.onrender.com"
-//   ],
-//   methods: ["GET", "PUT", "POST", "OPTIONS"],
-//   credentials: true,
-// }));
-
 app.use(cors({
-  origin: ["http://localhost:5173", "https://nmelonye-family.vercel.app"], // allowed origins
-  methods: ["GET", "POST", "PUT", "DELETE"], // allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // allowed headers
-  credentials: true // if you need cookies/auth headers
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.onrender.com","https://nmelonye-family.vercel.app"
+  ],
+  methods: ["GET", "PUT", "POST", "OPTIONS"],
+  credentials: true,
 }));
 
 app.use(express.json());
 app.use(bodyParser.json());
 
-
-app.post("/register/login", (req, res) => {
-  res.json({ message: "Login route works!" });
-});
 // ✅ Routes
-// app.use('/nwankwos', router);
-// app.use('/asouzus', asouzuRouter);
-// app.use('/udorjis', udorjiRouter);
-// app.use('/okolis', okoliRouter);
-// app.use('/anyagas', anyagaRouter);
-// app.use('/api/user', familyRouter);
+app.use('/nwankwos', router);
+app.use('/asouzus', asouzuRouter);
+app.use('/udorjis', udorjiRouter);
+app.use('/okolis', okoliRouter);
+app.use('/anyagas', anyagaRouter);
+app.use('/api/user', familyRouter);
 
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
