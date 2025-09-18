@@ -15,6 +15,9 @@ dotenv.config();
 const app = express();
 
 // ✅ Apply middleware in correct order
+app.use(express.json());
+app.use(bodyParser.json());
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -24,8 +27,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json());
-app.use(bodyParser.json());
+
 
 // ✅ Routes
 app.use('/nwankwos', router);
