@@ -16,12 +16,10 @@ const app = express();
 
 // ✅ Apply middleware in correct order
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://your-frontend.onrender.com"
-  ],
-  methods: ["GET", "PUT", "POST", "OPTIONS"],
-  credentials: true,
+  origin: ["http://localhost:5173", "https://nmelonye-family.vercel.app"], // allowed origins
+  methods: ["GET", "POST", "PUT", "DELETE"], // allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // allowed headers
+  credentials: true // if you need cookies/auth headers
 }));
 
 app.use(express.json());
