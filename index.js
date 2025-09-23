@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // ✅ CORS setup
-// app.use(cors())
+
 app.use(
   cors({
     origin: [
@@ -32,6 +32,8 @@ app.use(
     credentials: true,
   })
 );
+
+
 // ✅ Handle preflight for all routes
 
 
