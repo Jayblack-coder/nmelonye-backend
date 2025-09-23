@@ -20,18 +20,18 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // ✅ CORS setup
-app.use(cors())
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "https://nmelonye-family.vercel.app"
-//     ],
-//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true,
-//   })
-// );
+// app.use(cors())
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://nmelonye-family.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 // ✅ Handle preflight for all routes
 
 
