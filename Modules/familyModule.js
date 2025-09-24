@@ -42,7 +42,7 @@ const FamilySchema = new mongoose.Schema({
   },
 
    generation: {
-       type: Number,
+       type: String,
        required: true,
   },
 
