@@ -10,14 +10,17 @@ import { udorjiRouter } from './Routes/udorjiRoute.js';
 import { okoliRouter } from './Routes/okoliRoute.js';
 import { anyagaRouter } from './Routes/anyagaRoute.js';
 import { familyRouter } from './Routes/familyRoute.js';
+import path from "path";
 
 dotenv.config();
 
 const app = express();
 
 // ✅ Middleware
+// ✅ Make uploads folder public
 app.use(express.json());
 app.use(bodyParser.json());
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // ✅ CORS setup
 

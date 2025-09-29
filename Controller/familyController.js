@@ -1,8 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { Family } from '../Modules/familyModule.js';
+import upload from "../upload.js";
+
 
 // Register user
-export const registerUser = async (req, res) => {
+export const registerUser = (upload.single("image"), async (req, res) => {
   try {
     const {
       surname,
@@ -57,7 +59,8 @@ export const registerUser = async (req, res) => {
       dateOfBirth,
       spouse,
       cityOfResidence,
-      offspring
+      offspring,
+       image: req.file ? `/uploads/${req.file.filename}` : null, // ✅ save path
     });
 
     await newUser.save();
@@ -66,7 +69,7 @@ export const registerUser = async (req, res) => {
     console.error("Registration error:", err);
     res.status(500).json({ message: "Error registering user", error: err.message });
   }
-};
+});
 
 export const loginuser = async (req, res) => {
     try {
