@@ -13,12 +13,8 @@ import { familyRouter } from './Routes/familyRoute.js';
 import path from "path";
 
 dotenv.config();
-
 const app = express();
 
-// ✅ Middleware
-// ✅ Make uploads folder public
-app.use(express.json());
 // ✅ CORS setup
 
 app.use(
@@ -32,6 +28,11 @@ app.use(
     credentials: true,
   })
 );
+
+// ✅ Middleware
+// ✅ Make uploads folder public
+app.use(express.json());
+
 
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
