@@ -45,7 +45,9 @@ export const registerUser = async (req, res) => {
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-const imageUrl = req.file?.path; 
+    
+const imageUrl = req.file ? req.file.path : null;
+ 
     // Create new user
     const newUser = new Family({
       surname,
