@@ -38,7 +38,11 @@ import {
   Create,
   findByIdAndDelete,
 } from "../Controller/familyController.js";
-import { upload } from "../cloudinary.js";
+import { upload } from "../Config/cloudinary.js";
+import dotenv from "dotenv";
+
+
+dotenv.config();
 
 export const familyRouter = express.Router();
 
