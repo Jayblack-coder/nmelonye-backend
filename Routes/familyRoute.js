@@ -38,6 +38,7 @@ import {
   Create,
   findByIdAndDelete,
 } from "../Controller/familyController.js";
+import { upload } from "../Config/cloudinary.js";
 
 export const familyRouter = express.Router();
 
@@ -48,16 +49,16 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // ✅ Multer storage setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir); // store inside uploads/
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, uploadDir); // store inside uploads/
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 // Routes
 familyRouter.get("/", getAllUsers);
