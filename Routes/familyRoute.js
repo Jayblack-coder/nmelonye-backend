@@ -38,15 +38,15 @@ import {
   Create,
   findByIdAndDelete,
 } from "../Controller/familyController.js";
-import { upload } from "../Config/cloudinary.js";
+import { upload } from "../cloudinary.js";
 
 export const familyRouter = express.Router();
 
 // ✅ Ensure uploads folder exists
-const uploadDir = "uploads/";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+// const uploadDir = "uploads/";
+// if (!fs.existsSync(uploadDir)) {
+//   fs.mkdirSync(uploadDir);
+// }
 
 // ✅ Multer storage setup
 // const storage = multer.diskStorage({
