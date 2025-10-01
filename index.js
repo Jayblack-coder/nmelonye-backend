@@ -19,9 +19,6 @@ const app = express();
 // ✅ Middleware
 // ✅ Make uploads folder public
 app.use(express.json());
-app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
-
 // ✅ CORS setup
 
 app.use(
@@ -35,6 +32,10 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(bodyParser.json());
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 
 
 // ✅ Handle preflight for all routes
