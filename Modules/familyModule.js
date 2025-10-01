@@ -63,7 +63,7 @@ const FamilySchema = new mongoose.Schema({
   
   image: {
         type: String,
-        required: false 
+        default: null, 
 }
 });
 export const Family = mongoose.model('families', FamilySchema)
