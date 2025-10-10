@@ -57,7 +57,7 @@ const FamilySchema = new mongoose.Schema({
   },
 
   offspring: {
-        type: Array,
+        type: [String],
         required: false,
   },
   
