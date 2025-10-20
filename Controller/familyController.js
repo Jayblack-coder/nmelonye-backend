@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
     const {
       surname,
       firstName,
-      middleName,
+      // middleName,
       familyStatus,
       userName,
       password,
@@ -52,7 +52,7 @@ const imageUrl = req.file ? req.file.path : null;
     const newUser = new Family({
       surname,
       firstName,
-      middleName,
+      // middleName,
       familyStatus,
       userName,
       password: hashedPassword,
