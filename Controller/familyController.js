@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
     const {
       surname,
       firstName,
-      // middleName,
+      middleName,
       familyStatus,
       userName,
       password,
@@ -52,7 +52,7 @@ const imageUrl = req.file ? req.file.path : null;
     const newUser = new Family({
       surname,
       firstName,
-      // middleName,
+      middleName,
       familyStatus,
       userName,
       password: hashedPassword,
@@ -150,7 +150,7 @@ export const getAllUsers = async (req, res) => {
         const {id} = req.params;
         const updatedfamily = await Family.findByIdAndUpdate(id, req.body);
         if (!updatedfamily) {
-            return res.status(404).json({message:"Product not found"});
+            return res.status(404).json({message:"member not found"});
         }
         res.status(200).json(updatedfamily);
     } catch (error) {
