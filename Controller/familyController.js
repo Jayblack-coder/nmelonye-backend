@@ -188,3 +188,23 @@ export const findByIdAndDelete = async (req,res) => {
         res.status(500).json({ message: error.message});
     }
 }
+
+// ✅ Update Profile Picture
+export const updateProfilePicture = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!req.file) return res.status(400).json({ message: "No image uploaded" });
+
+    const user = await Family.findByIdAndUpdate(
+      id,
+      { image: req.file.path },
+      { new: true }
+    );
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ message: "Profile picture updated", user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
