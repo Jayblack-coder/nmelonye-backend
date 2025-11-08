@@ -10,8 +10,8 @@ import { udorjiRouter } from './Routes/udorjiRoute.js';
 import { okoliRouter } from './Routes/okoliRoute.js';
 import { anyagaRouter } from './Routes/anyagaRoute.js';
 import { familyRouter } from './Routes/familyRoute.js';
-import { galleryRouter } from "./Routes/galleryRoutes.js";
-import { eventRouter } from "./Routes/eventRoutes.js";
+import { galleryRouter } from "./Routes/galleryRoute.js";
+import { eventRouter } from "./Routes/eventsRoute.js";
 import path from "path";
 
 dotenv.config();
