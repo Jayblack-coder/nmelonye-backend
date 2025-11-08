@@ -8,9 +8,10 @@ import {
   findByIdAndUpdate,
   Create,
   findByIdAndDelete,
+  updateProfilePicture,
 } from "../Controller/familyController.js";
-import { updateProfilePicture } from "../Controller/familyController.js";
 import { upload } from "../Config/cloudinary.js";
+import { protect,  } from "../Middleware/authMiddleware.js";
 import dotenv from "dotenv";
 
 
@@ -32,3 +33,5 @@ familyRouter.put("/:id", findByIdAndUpdate);
 familyRouter.post("/:id", Create);
 familyRouter.delete("/:id", findByIdAndDelete);
 familyRouter.post("/:id/uploadPhoto", upload.single("image"), updateProfilePicture);
+// ✅ Only logged-in users can update their photo
+familyRouter.post("/:id/uploadPhoto", protect, upload.single("image"), updateProfilePicture);

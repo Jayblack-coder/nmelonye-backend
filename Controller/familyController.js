@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { Family } from '../Modules/familyModule.js';
+import jwt from "jsonwebtoken";
 // import upload from "../upload.js";
 
 
@@ -94,8 +95,17 @@ export const loginuser = async (req, res) => {
         //     expiresIn: '1hr',
         // });
 
+// ✅ Create JWT token
+    const token = jwt.sign(
+      { id: user._id, role: user.familyStatus }, // we’ll use familyStatus to detect admin
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
+    );
+
         // Send response with token and user data
         return res.status(200).json({
+            message: "Login successful",
+            token,
             user: {
                 id: user._id,
                 surname: user.surname,
