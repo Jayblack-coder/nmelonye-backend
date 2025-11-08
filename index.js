@@ -10,6 +10,8 @@ import { udorjiRouter } from './Routes/udorjiRoute.js';
 import { okoliRouter } from './Routes/okoliRoute.js';
 import { anyagaRouter } from './Routes/anyagaRoute.js';
 import { familyRouter } from './Routes/familyRoute.js';
+import { galleryRouter } from "./Routes/galleryRoutes.js";
+import { eventRouter } from "./Routes/eventRoutes.js";
 import path from "path";
 
 dotenv.config();
@@ -49,6 +51,8 @@ app.use('/udorjis', udorjiRouter);
 app.use('/okolis', okoliRouter);
 app.use('/anyagas', anyagaRouter);
 app.use('/api/user', familyRouter);
+app.use("/api/gallery", galleryRouter);
+app.use("/api/events", eventRouter);
 
 // ✅ Server + DB
 const PORT = process.env.PORT || 7000;
