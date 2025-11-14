@@ -64,6 +64,10 @@ const FamilySchema = new mongoose.Schema({
   image: {
         type: String,
         default: null, 
+},
+ isAdmin: {
+        type: Boolean,
+        default: false, 
 }
 });
 export const Family = mongoose.model('families', FamilySchema)

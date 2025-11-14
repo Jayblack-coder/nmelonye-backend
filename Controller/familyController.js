@@ -122,6 +122,7 @@ export const loginuser = async (req, res) => {
         cityOfResidence: user.cityOfResidence,
         offspring: user.offspring,
         image: user.image,
+        isAdmin: user.isAdmin
       },
     });
   } catch (error) {
