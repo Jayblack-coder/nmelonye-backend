@@ -5,7 +5,8 @@ import { protect, adminOnly } from "../Middleware/authMiddleware.js";
 
 export const galleryRouter = express.Router();
 
-galleryRouter.post("/upload", upload.single("image"), uploadGalleryImage);
+// galleryRouter.post("/upload", upload.single("image"), uploadGalleryImage);
 galleryRouter.get("/", getAllGalleryImages);
 // ✅ Protected route (admin only)
 galleryRouter.post("/upload", protect, adminOnly, upload.single("image"), uploadGalleryImage);
+
