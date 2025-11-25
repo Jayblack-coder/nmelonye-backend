@@ -132,60 +132,7 @@ export const loginuser = async (req, res) => {
 };
 
 
-// export const loginuser = async (req, res) => {
-//     try {
-//         const { userName, password } = req.body;
 
-//         // Find the user by username
-//         const user = await Family.findOne({ userName });
-//         if (!user) {
-//             return res.status(404).json({ message: "USERNAME not found" });
-//         }
-
-//         // Compare password
-//         const isMatch = await bcrypt.compare(password, user.password);
-//         if (!isMatch) {
-//             return res.status(400).json({ message: "Invalid password" });
-//         }
-
-//         // Create a token
-//         // const token = jwt.sign({ id: user._id.toString() }, SECRET_KEY, {
-//         //     expiresIn: '1hr',
-//         // });
-
-// // ✅ Create JWT token
-//     const token = jwt.sign(
-//       { id: user._id, role: user.familyStatus }, // we’ll use familyStatus to detect admin
-//       process.env.JWT_SECRET,
-//       { expiresIn: "3h" }
-//     );
-
-//         // Send response with token and user data
-//         return res.status(200).json({
-//             message: "Login successful",
-//             token,
-//             user: {
-//                 id: user._id,
-//                 surname: user.surname,
-//                 firstName: user.firstName,
-//                 middleName: user.middleName,
-//                 familyStatus: user.familyStatus,
-//                 userName: user.userName,
-//                 password: user.password,
-//                 parents: user.parents,
-//                 generation: user.generation,
-//                 dateOfBirth: user.generation,
-//                 spouse: user.spouse,
-//                 cityOfResidence: user.cityOfResidence,
-//                 offspring: user.offspring
-//             },
-//         });
-        
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).json({ message: "Error logging in", error });
-//     }
-// };
 
 
 //GET Member by ID
