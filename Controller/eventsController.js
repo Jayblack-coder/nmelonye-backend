@@ -1,12 +1,9 @@
+// Controller/eventsController.js
 import { Event } from "../Modules/eventsModule.js";
 
-// CREATE EVENT
 export const createEvent = async (req, res) => {
   try {
     const { title, date, description, category } = req.body;
-
-    if (!title || !date)
-      return res.status(400).json({ message: "Title and date are required" });
 
     const image = req.file ? req.file.path : null;
 
@@ -25,7 +22,6 @@ export const createEvent = async (req, res) => {
   }
 };
 
-// GET ALL EVENTS
 export const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find().sort({ date: 1 });
@@ -35,36 +31,26 @@ export const getAllEvents = async (req, res) => {
   }
 };
 
-// UPDATE EVENT
 export const updateEvent = async (req, res) => {
   try {
-    const eventId = req.params.id;
-    const image = req.file ? req.file.path : null;
+    const updateData = req.body;
 
-    const updated = await Event.findByIdAndUpdate(
-      eventId,
-      { ...req.body, image },
-      { new: true }
-    );
+    if (req.file) updateData.image = req.file.path;
 
-    if (!updated) return res.status(404).json({ message: "Event not found" });
+    const updated = await Event.findByIdAndUpdate(req.params.id, updateData, {
+      new: true
+    });
 
-    res.status(200).json({ message: "Event updated", updated });
+    res.status(200).json(updated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// DELETE EVENT
 export const deleteEvent = async (req, res) => {
   try {
-    const eventId = req.params.id;
-
-    const deleted = await Event.findByIdAndDelete(eventId);
-    if (!deleted)
-      return res.status(404).json({ message: "Event not found" });
-
-    res.status(200).json({ message: "Event deleted successfully" });
+    await Event.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Event deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
