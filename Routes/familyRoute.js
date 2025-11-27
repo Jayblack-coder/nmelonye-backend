@@ -32,6 +32,6 @@ familyRouter.get("/:id", getUserById);
 familyRouter.put("/:id", findByIdAndUpdate);
 familyRouter.post("/:id", Create);
 familyRouter.delete("/:id", findByIdAndDelete);
-familyRouter.post("/:id/uploadPhoto", upload.single("image"), updateProfilePicture);
+// familyRouter.post("/:id/uploadPhoto", upload.single("image"), updateProfilePicture);
 // ✅ Only logged-in users can update their photo
 familyRouter.post("/:id/uploadPhoto", protect, upload.single("image"), updateProfilePicture);
