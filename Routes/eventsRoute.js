@@ -4,7 +4,8 @@ import { protect, adminOnly } from "../Middleware/authMiddleware.js";
 
 export const eventRouter = express.Router();
 
-eventRouter.post("/", createEvent);
+// Public route – members can view events
 eventRouter.get("/", getAllEvents);
-// ✅ Admin only
+
+// Admin only – creating events
 eventRouter.post("/", protect, adminOnly, createEvent);
