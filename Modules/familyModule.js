@@ -65,10 +65,10 @@ const FamilySchema = new mongoose.Schema({
         type: String,
         default: null, 
 },
-//  isAdmin: {
-//         type: Boolean,
-//         default: false, 
-// }
+ isAdmin: {
+        type: Boolean,
+        default: false, 
+}
 });
 export const Family = mongoose.model('families', FamilySchema)
 // module.exports = Family
