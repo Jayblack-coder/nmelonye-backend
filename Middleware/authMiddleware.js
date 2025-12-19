@@ -28,10 +28,18 @@ export const protect = async (req, res, next) => {
 };
 
 // ✅ Only Admins (e.g., Patriarch, Admin, etc.)
+// export const adminOnly = (req, res, next) => {
+//   if (req.user && req.user.familyStatus.toLowerCase() === "admin") {
+//     next();
+//   } else {
+//     res.status(403).json({ message: "Admin access only" });
+//   }
+// };
+
 export const adminOnly = (req, res, next) => {
-  if (req.user && req.user.familyStatus.toLowerCase() === "admin") {
-    next();
-  } else {
-    res.status(403).json({ message: "Admin access only" });
+  if (!req.user?.isAdmin) {
+    return res.status(403).json({ message: "Admins only" });
   }
+  next();
 };
+
