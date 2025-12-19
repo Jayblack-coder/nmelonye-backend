@@ -104,7 +104,7 @@ export const loginuser = async (req, res) => {
     //   { expiresIn: "3h" }
     // );
 const token = jwt.sign(
-  { id: user._id, isAdmin: user.isAdmin },
+  { id: user._id, familyStatus: user.familyStatus },
   process.env.JWT_SECRET,
   { expiresIn: "3h" }
 );
