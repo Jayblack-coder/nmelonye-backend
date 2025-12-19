@@ -127,8 +127,8 @@ const token = jwt.sign(
         spouse: user.spouse,
         cityOfResidence: user.cityOfResidence,
         offspring: user.offspring,
-        image: user.image,
-        isAdmin: user.isAdmin
+        image: user.image
+        // isAdmin: user.isAdmin
       },
     });
   } catch (error) {
