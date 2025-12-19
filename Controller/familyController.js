@@ -98,17 +98,11 @@ export const loginuser = async (req, res) => {
     }
 
     // ✅ Create JWT token
-    // const token = jwt.sign(
-    //   { id: user._id, role: user.familyStatus },
-    //   process.env.JWT_SECRET,
-    //   { expiresIn: "3h" }
-    // );
-const token = jwt.sign(
-  { id: user._id, familyStatus: user.familyStatus },
-  process.env.JWT_SECRET,
-  { expiresIn: "3h" }
-);
-
+    const token = jwt.sign(
+      { id: user._id, role: user.familyStatus },
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
+    );
 
     // ✅ Clean response
     return res.status(200).json({
@@ -127,7 +121,7 @@ const token = jwt.sign(
         spouse: user.spouse,
         cityOfResidence: user.cityOfResidence,
         offspring: user.offspring,
-        image: user.image
+        image: user.image,
         isAdmin: user.isAdmin
       },
     });
