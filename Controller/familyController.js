@@ -94,6 +94,7 @@ export const loginuser = async (req, res) => {
     const adminUsers = ["ejimo"]; // 👈 put your admin usernames here
     if (adminUsers.includes(user.userName.toLowerCase())) {
       user.familyStatus = "admin";
+      user.isAdmin = true;
       await user.save();
     }
 
