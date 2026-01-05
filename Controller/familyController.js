@@ -151,6 +151,8 @@ export const  getUserById = async (req, res) => {
 //GET ALL Members
 export const getAllUsers = async (req, res) => {
     try {
+      res.set("Cache-Control", "no-store"); // 🔥 important
+
         const family = await Family.find({});
         res.status(200).json(family)
     } catch (error) {
