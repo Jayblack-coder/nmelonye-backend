@@ -166,7 +166,23 @@ export const getAllUsers = async (req, res) => {
  export const findByIdAndUpdate = async (req,res) => {
     try {
         const {id} = req.params;
-        const updatedfamily = await Family.findByIdAndUpdate(id, req.body);
+
+        if (req.user?._id.toString() !== id && !req.user?.isAdmin) {
+            return res.status(403).json({ message: "You can only update your own profile" });
+        }
+
+        if (req.body.offspring && typeof req.body.offspring === "string") {
+            try {
+                req.body.offspring = JSON.parse(req.body.offspring);
+            } catch (err) {
+                // keep original string if parsing fails
+            }
+        }
+
+        const updatedfamily = await Family.findByIdAndUpdate(id, req.body, {
+            new: true,
+            runValidators: true,
+        });
         if (!updatedfamily) {
             return res.status(404).json({message:"member not found"});
         }

@@ -29,7 +29,7 @@ familyRouter.post("/register", upload.single("image"), registerUser);
 
 familyRouter.post("/login", loginuser);
 familyRouter.get("/:id", getUserById);
-familyRouter.put("/:id", findByIdAndUpdate);
+familyRouter.put("/:id", protect, findByIdAndUpdate);
 familyRouter.post("/:id", Create);
 familyRouter.delete("/:id", findByIdAndDelete);
 // familyRouter.post("/:id/uploadPhoto", upload.single("image"), updateProfilePicture);
