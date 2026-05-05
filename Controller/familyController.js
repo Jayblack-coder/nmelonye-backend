@@ -242,3 +242,47 @@ export const updateProfilePicture = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// ✅ Get all Nwankwo family members
+export const getNwankwoUsers = async (req, res) => {
+  try {
+    res.set("Cache-Control", "no-store");
+    const family = await Family.find({ surname: "Nwankwo" });
+    res.status(200).json(family);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ Get all Asouzu family members
+export const getAsouzuUsers = async (req, res) => {
+  try {
+    res.set("Cache-Control", "no-store");
+    const family = await Family.find({ surname: "Asouzu" });
+    res.status(200).json(family);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ Get all Udorji family members
+export const getUdorjiUsers = async (req, res) => {
+  try {
+    res.set("Cache-Control", "no-store");
+    const family = await Family.find({ surname: "Udorji" });
+    res.status(200).json(family);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ Get all Okoli family members
+export const getOkoliUsers = async (req, res) => {
+  try {
+    res.set("Cache-Control", "no-store");
+    const family = await Family.find({ surname: "Okoli" });
+    res.status(200).json(family);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

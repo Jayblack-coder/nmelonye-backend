@@ -9,6 +9,10 @@ import {
   Create,
   findByIdAndDelete,
   updateProfilePicture,
+  getNwankwoUsers,
+  getAsouzuUsers,
+  getUdorjiUsers,
+  getOkoliUsers,
 } from "../Controller/familyController.js";
 import { upload } from "../Config/cloudinary.js";
 import { protect,  } from "../Middleware/authMiddleware.js";
@@ -23,6 +27,12 @@ export const familyRouter = express.Router();
 
 // Routes
 familyRouter.get("/", getAllUsers);
+
+// ✅ Separate endpoints for each family line
+familyRouter.get("/family-line/nwankwo", getNwankwoUsers);
+familyRouter.get("/family-line/asouzu", getAsouzuUsers);
+familyRouter.get("/family-line/udorji", getUdorjiUsers);
+familyRouter.get("/family-line/okoli", getOkoliUsers);
 
 // ✅ Register user with profile image
 familyRouter.post("/register", upload.single("image"), registerUser);
