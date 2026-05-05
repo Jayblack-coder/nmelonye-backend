@@ -247,7 +247,7 @@ export const updateProfilePicture = async (req, res) => {
 export const getNwankwoUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
-    const family = await Family.find({ surname: "Nwankwo" });
+    const family = await Family.find({ surname: { $regex: /^Nwankwo$/i } });
     res.status(200).json(family);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -258,7 +258,7 @@ export const getNwankwoUsers = async (req, res) => {
 export const getAsouzuUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
-    const family = await Family.find({ surname: "Asouzu" });
+    const family = await Family.find({ surname: { $regex: /^Asouzu$/i } });
     res.status(200).json(family);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -269,7 +269,7 @@ export const getAsouzuUsers = async (req, res) => {
 export const getUdorjiUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
-    const family = await Family.find({ surname: "Udorji" });
+    const family = await Family.find({ surname: { $regex: /^Udorji$/i } });
     res.status(200).json(family);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -280,9 +280,21 @@ export const getUdorjiUsers = async (req, res) => {
 export const getOkoliUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
-    const family = await Family.find({ surname: "Okoli" });
+    const family = await Family.find({ surname: { $regex: /^Okoli$/i } });
     res.status(200).json(family);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ Get any family line by surname parameter
+export const getFamilyLineUsers = async (req, res) => {
+  try {
+    const { surname } = req.params;
+    res.set("Cache-Control", "no-store");
+    const family = await Family.find({ surname: { $regex: new RegExp(`^${surname}$`, "i") } });
+    return res.status(200).json(family);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };

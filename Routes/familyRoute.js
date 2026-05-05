@@ -13,13 +13,10 @@ import {
   getAsouzuUsers,
   getUdorjiUsers,
   getOkoliUsers,
+  getFamilyLineUsers,
 } from "../Controller/familyController.js";
 import { upload } from "../Config/cloudinary.js";
-import { protect,  } from "../Middleware/authMiddleware.js";
-import dotenv from "dotenv";
-
-
-dotenv.config();
+import { protect } from "../Middleware/authMiddleware.js";
 
 export const familyRouter = express.Router();
 
@@ -33,6 +30,13 @@ familyRouter.get("/family-line/nwankwo", getNwankwoUsers);
 familyRouter.get("/family-line/asouzu", getAsouzuUsers);
 familyRouter.get("/family-line/udorji", getUdorjiUsers);
 familyRouter.get("/family-line/okoli", getOkoliUsers);
+familyRouter.get("/family-line/:surname", getFamilyLineUsers);
+
+// ✅ Compatibility aliases for older frontend requests
+familyRouter.get("/nwankwo", getNwankwoUsers);
+familyRouter.get("/asouzu", getAsouzuUsers);
+familyRouter.get("/udorji", getUdorjiUsers);
+familyRouter.get("/okoli", getOkoliUsers);
 
 // ✅ Register user with profile image
 familyRouter.post("/register", upload.single("image"), registerUser);
