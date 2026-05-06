@@ -93,7 +93,6 @@ export const loginuser = async (req, res) => {
     // ✅ Auto-assign admin role for your account(s)
     const adminUsers = ["ejimo"]; // 👈 put your admin usernames here
     if (adminUsers.includes(user.userName.toLowerCase())) {
-      user.familyStatus = "admin";
       user.isAdmin = true;
       user.role = "admin";
       await user.save();
