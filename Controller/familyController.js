@@ -128,7 +128,11 @@ export const loginuser = async (req, res) => {
     });
   } catch (error) {
     console.error("Login error:", error);
-    return res.status(500).json({ message: "Error logging in", error });
+   return res.status(500).json({
+  message: "Error logging in",
+  error: error.message,
+  stack: error.stack
+});
   }
 };
 
