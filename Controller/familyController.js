@@ -95,6 +95,10 @@ export const loginuser = async (req, res) => {
     if (adminUsers.includes(user.userName.toLowerCase())) {
       user.familyStatus = "admin";
       user.isAdmin = true;
+      user.role = "admin";
+      await user.save();
+    } else {
+      user.role = "member";
       await user.save();
     }
 
@@ -123,6 +127,7 @@ export const loginuser = async (req, res) => {
         cityOfResidence: user.cityOfResidence,
         offspring: user.offspring,
         image: user.image,
+        role: user.role,
         isAdmin: user.isAdmin
       },
     });
@@ -145,7 +150,12 @@ export const  getUserById = async (req, res) => {
     try {
         const {id} = req.params;
         const family = await Family.findById(id);
-        res.status(200).json(family);
+        if (!family) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        // Hide role from public API
+        const { role, ...userWithoutRole } = family.toObject();
+        res.status(200).json(userWithoutRole);
     } catch (error) {
         res.status(500).json({ message: error.message});
     }
@@ -158,7 +168,12 @@ export const getAllUsers = async (req, res) => {
       res.set("Cache-Control", "no-store"); // 🔥 important
 
         const family = await Family.find({});
-        res.status(200).json(family)
+        // Hide role from public API
+        const sanitizedFamily = family.map(user => {
+          const { role, ...userWithoutRole } = user.toObject();
+          return userWithoutRole;
+        });
+        res.status(200).json(sanitizedFamily)
     } catch (error) {
      res.status(500).json({message: error.message});   
     }
@@ -252,7 +267,12 @@ export const getNwankwoUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
     const family = await Family.find({ surname: { $regex: /^Nwankwo$/i } });
-    res.status(200).json(family);
+    // Hide role from public API
+    const sanitizedFamily = family.map(user => {
+      const { role, ...userWithoutRole } = user.toObject();
+      return userWithoutRole;
+    });
+    res.status(200).json(sanitizedFamily);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -263,7 +283,12 @@ export const getAsouzuUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
     const family = await Family.find({ surname: { $regex: /^Asouzu$/i } });
-    res.status(200).json(family);
+    // Hide role from public API
+    const sanitizedFamily = family.map(user => {
+      const { role, ...userWithoutRole } = user.toObject();
+      return userWithoutRole;
+    });
+    res.status(200).json(sanitizedFamily);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -274,7 +299,12 @@ export const getUdorjiUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
     const family = await Family.find({ surname: { $regex: /^Udorji$/i } });
-    res.status(200).json(family);
+    // Hide role from public API
+    const sanitizedFamily = family.map(user => {
+      const { role, ...userWithoutRole } = user.toObject();
+      return userWithoutRole;
+    });
+    res.status(200).json(sanitizedFamily);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -285,7 +315,12 @@ export const getOkoliUsers = async (req, res) => {
   try {
     res.set("Cache-Control", "no-store");
     const family = await Family.find({ surname: { $regex: /^Okoli$/i } });
-    res.status(200).json(family);
+    // Hide role from public API
+    const sanitizedFamily = family.map(user => {
+      const { role, ...userWithoutRole } = user.toObject();
+      return userWithoutRole;
+    });
+    res.status(200).json(sanitizedFamily);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -297,7 +332,12 @@ export const getFamilyLineUsers = async (req, res) => {
     const { surname } = req.params;
     res.set("Cache-Control", "no-store");
     const family = await Family.find({ surname: { $regex: new RegExp(`^${surname}$`, "i") } });
-    return res.status(200).json(family);
+    // Hide role from public API
+    const sanitizedFamily = family.map(user => {
+      const { role, ...userWithoutRole } = user.toObject();
+      return userWithoutRole;
+    });
+    return res.status(200).json(sanitizedFamily);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
